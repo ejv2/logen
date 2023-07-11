@@ -1,7 +1,7 @@
-lgen - logic signal generator
+logen - logic signal generator
 =============================
 
-lgen is a basic testing logic signal generator for testing logic gates and
+logen is a basic testing logic signal generator for testing logic gates and
 their responses to different signals. It generates every possible pattern of
 logic symbols on n pins by simply counting up in binary and outputting the
 result onto the configured pins.

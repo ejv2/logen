@@ -1,5 +1,5 @@
 /*
- * lgen - logic generator
+ * logen - logic generator
  * Generate a sequence of logic signals over n pins
  * Copyright (C) 2023 - Ethan Marshall
  */

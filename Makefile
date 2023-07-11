@@ -1,13 +1,13 @@
 #
-# lgen - logic generator
+# logen - logic generator
 # Generate a sequence of logic signals over n pins
 # Copyright (C) 2023 - Ethan Marshall
 #
 
-SRC = lgen.c
+SRC = logen.c
 HDR = config.h
 OBJ = ${SRC:.c=.o}
-EXE = lgen.elf
+EXE = logen.elf
 
 CC        = avr-gcc
 FLASHER   = avrdude
