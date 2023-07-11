@@ -1,0 +1,85 @@
+lgen - logic signal generator
+=============================
+
+lgen is a basic testing logic signal generator for testing logic gates and
+their responses to different signals. It generates every possible pattern of
+logic symbols on n pins by simply counting up in binary and outputting the
+result onto the configured pins.
+
+Usage Instructions
+------------------
+
+Hook up the pins you have configured to some kind of output (logic, LED, etc.)
+and watch the signals!
+
+To freeze the board on a particular bit pattern, pull BTN_PIN low (on many
+boards, this means press the built-in button). Assuming this input is connected
+to a button, press once shortly to unfreeze again. Long pressing when frozen
+will shift to the next logic state but remain frozen. If BTN_PIN is not
+connected to a button, the same timing applies to the input logic signal.
+
+Practically all inputs are active low.
+
+Dependencies
+------------
+
+To build, you probably need one of the support packs from Atmel. The makefile
+assumes you put them in the same place I put them on my system (which is really
+unlikely), so be sure to configure the BOARDLIBS parameter properly on your
+system.
+
+If you installed them globally, you can set the BOARDLIBS parameter to an empty
+string and the AVRLIBS one will pick them up, assuming they are in the default
+AVR libraries path.
+
+Hardware support
+----------------
+
+In theory, anything AVR which supports programs compiled directly to the metal
+with no Arduino runtime etc.
+
+I wrote this for the ATTiny3217, so I can attest to the fact that it runs
+perfectly on that specific controller, but you can consider it otherwise
+untested.
+
+You *will* need to configure for your board, unless you happen to be using an
+ATTiny3217 on a Curiosity Nano 3 port, 7 pin board with LED on PB3 and button
+on PA7!
+
+Configuration
+-------------
+
+All build-time configuration can be passed on the command line to the makefile.
+For instance, say you need to compile using AVR Clang targetting ATTiny10,
+flash using minipro and use /dev/ttyACM0 as the flasher target, you could use
+the following:
+
+	make CC=avr-clang FLASHER=minipro BOARD=attiny10 BOARDPORT=/dev/ttyACM0
+
+If this is too clumsy or you want persistence, you can create a shell script to
+export the environment variables yourself:
+
+	export CC=avr-clang FLASHER=minipro BOARD=attiny10 BOARDPORT=/dev/ttyACM0
+
+Then, just save to a file and source it (not execute! that won't work!):
+
+	$ source ./buildenv
+
+
+Software configuration is done entirely through constants in config.h. Very
+little error checking is performed as I assume that you know what you are doing
+with the hardware. BUT, obvious errors (such as overflowing a register or
+specifying pins that don't exist on AVR boards) will cause the board to halt at
+startup and flash the internal LED (if one exists) on LED_PORT's LED_PIN.
+
+If your specific hardware does not support some or all of the features, most
+can be disabled by just ignoring their existence. However, you can disable
+panic LED flashes by setting PANIC_ENABLE to zero.
+
+If SINGLE_STEP is set to 1, the program waits for BTN_PIN to go low each cycle
+before moving on to the next logic state. This is for use on built-in buttons
+on many boards, otherwise can be used to sync to an inverted clock pulse.
+
+INTERVAL is a vague number capped at UINT16_MAX which controls the delay
+between logic cycles. The higher the longer the delay, the lower the shorter.
+It is not more specific than that and is deliberately inprecise.
