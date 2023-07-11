@@ -10,12 +10,11 @@
 #include "config.h"
 
 /* panic constants */
-#define PANIC_PORT PORTA
-#define PANIC_BIT  (1 << 3)
+#define PANIC_PORT LED_PORT
+#define PANIC_BIT  (1 << LED_PIN)
 
-/* button in constants */
-#define BTN_PORT PORTB
-#define BTN_BIT  (1 << 7)
+/* button constants */
+#define BTN_BIT (1 << BTN_PIN)
 
 /*
  * maximum value which can be outputted by the logic pins configured by the user.

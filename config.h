@@ -43,8 +43,34 @@
 
 /*
  * If invalid configuration or a fatal error is detected at startup, panic by
- * flashing the SMT LED at PA3.
+ * flashing the SMT LED at LED_PORT (default: PA3).
  * If disabled, board is still halted but no panic flashing occurs. This can be
  * used to clobber PA3.
  */
 #define PANIC_ENABLE 1
+
+/*
+ * Port on which the internal LED can be reached. If none exists, just set to a
+ * dummy value which doesn't conflict with your output pins.
+ */
+#define LED_PORT PORTA
+
+/*
+ * The pin number (starting from zero) on which the internal LED can be reached.
+ * See above.
+ */
+#define LED_PIN 3
+
+/*
+ * The port from which the state of the built-in button can be read. This is
+ * expected to be active low (depressed is high, pressed pulls low).
+ * If none exists, set to a dummy value which does not conflict with LED_PIN or
+ * your output pins.
+ */
+#define BTN_PORT PORTB
+
+/*
+ * The pin from which the state of the built-in button can be read.
+ * See above.
+ */
+#define BTN_PIN 7
