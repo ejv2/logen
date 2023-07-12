@@ -91,7 +91,6 @@ static void block_pause()
 
 int main(void)
 {
-	uint8_t sstep = 0;
 	uint8_t state;
 
 	/* startup configuration validation */
@@ -113,7 +112,7 @@ int main(void)
 			block_pause();
 		} while ((state << STPIN) < outmax);
 
-		PORT.OUTCLR = outmax << STPIN - 1;
+		PORT.OUTCLR = outmax << (STPIN - 1);
 		delay(INTERVAL);
 		block_pause();
 	}
