@@ -56,8 +56,15 @@ static void io_init()
 	PORT.DIRCLR = ~outmax;
 
 	/* mark button as input */
-	if (BTN_ENABLE)
+	if (BTN_ENABLE) {
 		BTN_PORT.DIRCLR = BTN_BIT;
+		/* enable internal pullup.
+		 * little hack to allow us to treat all those fields as an
+		 * array indexed by our constant.
+		 * ((should)) compile to the same code!
+		 */
+		((uint8_t *)(&BTN_PORT.PIN0CTRL))[BTN_PIN] |= PORT_PULLUPEN_bm;
+	}
 
 	/*
 	 * set user ports low at startup
