@@ -62,6 +62,13 @@
 #define LED_PIN 3
 
 /*
+ * Enable board control using BTN_PIN, designed for use on surface mount push
+ * buttons. If disabled, button inputs are totally ignored and BTN_PIN is not
+ * configured.
+ */
+#define BTN_ENABLE 1
+
+/*
  * The port from which the state of the built-in button can be read. This is
  * expected to be active low (depressed is high, pressed pulls low).
  * If none exists, set to a dummy value which does not conflict with LED_PIN or

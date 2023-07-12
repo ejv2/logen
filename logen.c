@@ -56,7 +56,8 @@ static void io_init()
 	PORT.DIRCLR = ~outmax;
 
 	/* mark button as input */
-	BTN_PORT.DIRCLR = BTN_BIT;
+	if (BTN_ENABLE)
+		BTN_PORT.DIRCLR = BTN_BIT;
 
 	/*
 	 * set user ports low at startup
@@ -66,6 +67,9 @@ static void io_init()
 
 static void block_pause()
 {
+	if (!BTN_ENABLE)
+		return;
+
 	/* note: this needs to be a busy loop! */
 	if (!(BTN_PORT.IN & BTN_BIT) || SINGLE_STEP) {
 		/* block until depressed */
